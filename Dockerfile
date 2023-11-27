@@ -1,23 +1,22 @@
-# Use an official Node.js runtime as the base image
-FROM node:14
+FROM node:lts-alpine
 
-# Set the working directory in the container
+# install simple http server for serving static content
+RUN npm install -g http-server
+
+# make the 'app' folder the current working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the working directory
+# copy both 'package.json' and 'package-lock.json' (if available)
 COPY package*.json ./
 
-# Install project dependencies
+# install project dependencies
 RUN npm install
 
-# Copy the rest of the application code
+# copy project files and folders to the current working directory (i.e. 'app' folder)
 COPY . .
 
-# Build the Vue.js application
+# build app for production with minification
 RUN npm run build
 
-# Expose the port the app runs on
 EXPOSE 8080
-
-# Define the command to run your application
-CMD ["npm", "run", "serve"]
+CMD [ "http-server", "dist" ]

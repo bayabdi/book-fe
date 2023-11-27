@@ -1,12 +1,14 @@
 version: '3'
 services:
-  app:
+  dockerize-vuejs-app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile  # Specify the path to your Dockerfile if it's not in the same directory as docker-compose.yml
+    image: vuejs-cookbook/dockerize-vuejs-app
     ports:
-      - "3000:8080"
-    volumes:
-      - .:/app
-    restart: always
-
+      - "8080:8080"
+    container_name: dockerize-vuejs-app-1
+    command: npm run serve  # Replace this with the actual command needed to start your Vue.js app
+    tty: true
+    stdin_open: true
+    restart: unless-stopped
