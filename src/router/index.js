@@ -37,8 +37,6 @@ const router = createRouter({
 // Navigation guard to check authentication status
 router.beforeEach((to, from, next) => {
   const isAuthenticated = localStorage.getItem('token') !== null;
-  console.log(localStorage.getItem('token'), isAuthenticated)
-
   if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
     // Redirect to login if the route requires authentication and the user is not authenticated
     next('/login');

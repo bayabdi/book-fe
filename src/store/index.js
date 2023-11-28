@@ -12,8 +12,12 @@ const store = createStore({
       state.user = user;
     },
     SET_TOKEN(state, token) {
+      if (token === null) {
+        localStorage.removeItem('token');
+        window.location.reload();
+      }
+      else { localStorage.setItem('token', token) }
       state.token = token
-      localStorage.setItem('token', token)
     }
     // Add other mutations as needed
   },
