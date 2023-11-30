@@ -5,7 +5,8 @@ import router from '@/router/index';
 const store = createStore({
   state: {
     user: null,
-    token: null
+    token: null,
+    appointments: []
   },
   mutations: {
     SET_USER(state, user) {
@@ -18,6 +19,9 @@ const store = createStore({
       }
       else { localStorage.setItem('token', token) }
       state.token = token
+    },
+    SET_APPOINTMENTS(state, appointments){
+      state.appointments = appointments
     }
     // Add other mutations as needed
   },
@@ -42,7 +46,7 @@ const store = createStore({
           'Content-Type': 'application/json', // Adjust the content type as needed
         };
 
-        axios.post('/user/test', {}, { headers })
+        axios.post('/user/get_current_user', {}, { headers })
           .then(response => {
             commit('SET_USER', response.data)
           })
@@ -50,6 +54,54 @@ const store = createStore({
             console.error('Axios error:', error);
             commit('SET_TOKEN', null)
             
+          });
+      }
+      catch (error)
+      {
+        console.log(error)
+      }
+    },
+    // eslint-disable-next-line no-unused-vars
+    async book({ commit }, appointment) {
+      try {
+        const token = localStorage.getItem('token')
+        
+        const headers = {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json', // Adjust the content type as needed
+        };
+
+        axios.post('/appointment/add', appointment, { headers })
+          .then(response => {
+            console.log(response)
+            window.location.reload();
+          })
+          .catch(error => {
+            alert(error)
+            // commit('SET_TOKEN', null)
+          });
+      }
+      catch (error)
+      {
+        console.log(error)
+      }
+    },
+    async myBookList({ commit }) {
+      try {
+        const token = localStorage.getItem('token')
+        
+        const headers = {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json', // Adjust the content type as needed
+        };
+
+        axios.get('/appointment/list', { headers })
+          .then(response => {
+            commit('SET_APPOINTMENTS', response.data)
+          })
+          .catch(error => {
+            alert(error)
+            // commit('SET_TOKEN', null)
           });
       }
       catch (error)

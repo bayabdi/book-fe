@@ -2,16 +2,21 @@
     <div>
         Dashboard
         <h1 v-if="is_manager">Manager</h1>
-        <h1>{{ email }}</h1>
-        <h2>{{ fullName }}</h2>
-        <h2>{{ phoneNumber }}</h2>
+        <h4>{{ email }}</h4>
+        <h4>{{ fullName }}</h4>
+        <h4>{{ phoneNumber }}</h4>
+        <BookingForm v-if="!is_manager" />
     </div>
 </template>
 
 <script>
+import BookingForm from '@/components/BookingForm.vue'
+
 export default {
     name: 'LoginView',
-    components: {},
+    components: {
+        BookingForm,
+    },
     computed: {
         fullName() {
             if (this.$store.state.user === null)
@@ -41,7 +46,6 @@ export default {
     },
     async mounted () {
         this.$store.dispatch('getCurrentUser');
-        console.log(this.$store.state)
     }
 }
 </script>
