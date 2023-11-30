@@ -6,16 +6,19 @@
         <h4>{{ fullName }}</h4>
         <h4>{{ phoneNumber }}</h4>
         <BookingForm v-if="!is_manager" />
+        <BookingTracking v-else/>
     </div>
 </template>
 
 <script>
 import BookingForm from '@/components/BookingForm.vue'
+import BookingTracking from '@/components/BookingTracking.vue'
 
 export default {
     name: 'LoginView',
     components: {
         BookingForm,
+        BookingTracking
     },
     computed: {
         fullName() {

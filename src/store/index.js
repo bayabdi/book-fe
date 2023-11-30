@@ -6,7 +6,7 @@ const store = createStore({
   state: {
     user: null,
     token: null,
-    appointments: []
+    appointments: [],
   },
   mutations: {
     SET_USER(state, user) {
@@ -98,6 +98,54 @@ const store = createStore({
         axios.get('/appointment/list', { headers })
           .then(response => {
             commit('SET_APPOINTMENTS', response.data)
+          })
+          .catch(error => {
+            alert(error)
+            // commit('SET_TOKEN', null)
+          });
+      }
+      catch (error)
+      {
+        console.log(error)
+      }
+    },
+    async pendingBookList({ commit }) {
+      try {
+        const token = localStorage.getItem('token')
+        
+        const headers = {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json', // Adjust the content type as needed
+        };
+
+        axios.get('/appointment/list_by_status?status=1', { headers })
+          .then(response => {
+            commit('SET_APPOINTMENTS', response.data)
+          })
+          .catch(error => {
+            alert(error)
+            // commit('SET_TOKEN', null)
+          });
+      }
+      catch (error)
+      {
+        console.log(error)
+      }
+    },
+    // eslint-disable-next-line no-unused-vars
+    async changeStatus({ commit }, model) {
+      try {
+        const token = localStorage.getItem('token')
+        
+        const headers = {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json', // Adjust the content type as needed
+        };
+        console.log(model)
+        axios.post('/appointment/change_status', model, { headers })
+          .then(response => {
+            console.log(response)
+            window.location.reload();
           })
           .catch(error => {
             alert(error)
