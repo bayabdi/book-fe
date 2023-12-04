@@ -186,6 +186,10 @@ const store = createStore({
       }
     },
     
+    async logout({commit}) {
+      commit('SET_USER', null)
+      commit('SET_TOKEN', null)
+    }
   },
 });
 

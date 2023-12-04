@@ -7,7 +7,7 @@
 
         <div class="input-field">
             <label class="label" for="password">Password:</label>
-            <input class="password" type="password" id="password" v-model="credentials.password" /><br>
+            <input class="password" placeholder="Enter password..." type="password" id="password" v-model="credentials.password" /><br>
         </div>
         <div>
             <button class="btn" type="submit">Login</button>
