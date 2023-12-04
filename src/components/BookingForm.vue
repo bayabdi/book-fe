@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button v-if="!isShow" @click="isShow = true;">Book appointment</button>
+        <button v-if="!isShow" @click="isShow = true;" class="book-appointment-button">Book appointment</button>
         <div v-if="isShow">
             <div>
                 <label for="datetime">From date and time:</label><br/>
@@ -10,20 +10,21 @@
                     id="datetime"
                     name="fromDatetimeInput"
                     :min="today"
+                    class="input"
                 >
             </div>
-            <div>
+            <div class="select-container">
                 <label for="duration">Duration:</label><br/>
-                <select v-model="duration" id="duration" name="duration">
+                <select class="input" v-model="duration" id="duration" name="duration">
                     <option v-for="item in durations" :key="item.value" :value="item.value">{{ item.text }}</option>
                 </select>
             </div>
             <div>
                 <label for="reason">Reason:</label><br/>
-                <textarea v-model="reason" placeholder="Type reason..."></textarea>
+                <textarea class="input" v-model="reason" placeholder="Type reason..."></textarea>
             </div>
-            <button @click="book()">Book</button>
-            <button @click="isShow = false">Cancel</button>
+            <button @click="book()" class="book-button">Book</button>
+            <button @click="isShow = false" class="cancel-button">Cancel</button>
         </div>
         <MyBookingList v-if="!isShow"/>
     </div>
@@ -97,4 +98,83 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+.book-appointment-button {
+  display: inline-block;
+  padding: 15px 30px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  background-color: #3498db;
+  color: #fff;
+  border: 2px solid #3498db;
+  margin-top: 20px;
+}
+
+.book-appointment-button:hover {
+  background-color: #fff;
+  color: #3498db;
+}
+
+@media only screen and (max-width: 600px) {
+  .book-appointment-button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+label {
+    font-size: 16px;
+    margin-top: 18px;
+    margin-bottom: -8px;
+    display: block;
+}
+
+.input {
+    width: 200px;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+
+.book-button, .cancel-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+    margin: 0 10px;
+}
+
+.book-button {
+    background-color: #3498db;
+    color: #fff;
+}
+
+.cancel-button {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.book-button:hover, .cancel-button:hover {
+    background-color: #2980b9;
+}
+</style>
   

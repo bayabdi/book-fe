@@ -2,6 +2,15 @@
     <div>
         <h1>My appointments:</h1>
         <table style="max-width: 700px; margin-left: auto; margin-right: auto;">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Start Time</th>
+                    <th>Duration</th>
+                    <th>Status</th>
+                    <th>Reason</th>
+                </tr>
+            </thead>
             <tr v-for="appointment in appointments" :key="appointment.id">
                 <td><h2>{{ appointment.id }}</h2></td>
                 <td>{{ formatDateString(appointment.startTime) }}</td>
@@ -43,4 +52,40 @@ export default {
     }
 };
 </script>
-  
+
+<style scoped>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #3498db;
+      color: #fff;
+    }
+
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+
+    td:first-child {
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+    }
+
+    td:last-child {
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
+</style>
