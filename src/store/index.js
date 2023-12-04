@@ -77,7 +77,8 @@ const store = createStore({
             window.location.reload();
           })
           .catch(error => {
-            alert(error)
+            if(error.response != undefined && error.response.status == 400) { alert(error.response.data.detail) }
+            else { alert(error) }
             // commit('SET_TOKEN', null)
           });
       }
@@ -148,6 +149,33 @@ const store = createStore({
             window.location.reload();
           })
           .catch(error => {
+            if(error.response != undefined && error.response.status == 400) { alert(error.response.data.detail) }
+            else { alert(error) }
+          });
+      }
+      catch (error)
+      {
+        console.log(error)
+      }
+    },
+    // eslint-disable-next-line no-unused-vars
+    async checkAvailability({ commit }, model) {
+      try {
+        const token = localStorage.getItem('token')
+        
+        const headers = {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json', // Adjust the content type as needed
+        };
+        console.log(model)
+        axios.post('/appointment/check_availability', model, { headers })
+          .then(response => {
+            if (response.data == true)
+              alert("Can fit!")
+            else
+              alert("No, can't fit!")
+          })
+          .catch(error => {
             alert(error)
             // commit('SET_TOKEN', null)
           });
@@ -157,6 +185,7 @@ const store = createStore({
         console.log(error)
       }
     },
+    
   },
 });
 

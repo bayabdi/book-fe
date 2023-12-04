@@ -27,7 +27,7 @@
                     <td style="text-align: left;">{{ appointment.reason }}</td>
                     <td><button @click="changeStatus(appointment.id, 2)">Approve</button></td>
                     <td><button @click="changeStatus(appointment.id, 3)">Decline</button></td>
-                    <td><button>Check fitness</button></td>
+                    <td><button @click="checkAvailability(appointment.startTime, appointment.duration)">Check fitness</button></td>
                 </tr>
             </tbody>
         </table>
@@ -52,6 +52,12 @@ export default {
             this.$store.dispatch('changeStatus', {
                 'id': id,
                 'status': status
+            })
+        },
+        checkAvailability(startTime, duration) {
+            this.$store.dispatch('checkAvailability', {
+                'startTime': startTime,
+                'duration': duration
             })
         }
     },

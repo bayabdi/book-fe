@@ -83,7 +83,12 @@ export default {
     },
     computed: {
         today() {
-            const today = new Date().toISOString().split("T")[0];
+            let currentDate = new Date();
+            currentDate.setHours(currentDate.getHours() + 1);
+            
+            const today = currentDate.toISOString().split('.')[0].substring(0, 16);
+            console.log(today.length)
+            console.log(today)
             return today;
         }
     },
