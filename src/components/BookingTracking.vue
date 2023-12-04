@@ -25,9 +25,9 @@
                     <td>{{ appointment.email }}</td>
                     <td><h4>{{ appointment.phoneNumber }}</h4></td>
                     <td style="text-align: left;">{{ appointment.reason }}</td>
-                    <td><button @click="changeStatus(appointment.id, 2)">Approve</button></td>
-                    <td><button @click="changeStatus(appointment.id, 3)">Decline</button></td>
-                    <td><button @click="checkAvailability(appointment.startTime, appointment.duration)">Check fitness</button></td>
+                    <td><button class="approve-button" @click="changeStatus(appointment.id, 2)">Approve</button></td>
+                    <td><button class="decline-button" @click="changeStatus(appointment.id, 3)">Decline</button></td>
+                    <td><button class="check-availability-btn" @click="checkAvailability(appointment.startTime, appointment.duration)">Check Availability</button></td>
                 </tr>
             </tbody>
         </table>
@@ -71,4 +71,117 @@ export default {
     }
 };
 </script>
-  
+
+<style scoped>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #41b983;
+      color: #fff;
+    }
+
+    /* Add some hover effect */
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+
+    /* Style for responsive tables */
+    @media only screen and (max-width: 600px) {
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+
+      th {
+        display: none;
+      }
+
+      td {
+        border: none;
+        position: relative;
+        padding-left: 50%;
+        text-align: left;
+      }
+
+      td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-weight: bold;
+      }
+    }
+
+    .approve-button {
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      cursor: pointer;
+      border: 2px solid #27ae60;
+      color: #fff;
+      background-color: #2ecc71;
+      border-radius: 5px;
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    /* Hover effect */
+    .approve-button:hover {
+      background-color: #27ae60;
+      color: #fff;
+      border-color: #27ae60;
+    }
+
+    .decline-button {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      color: #fff;
+      background-color: #e74c3c;
+      border: 2px solid #c0392b;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .decline-button:hover {
+      background-color: #c0392b;
+    }
+
+    .check-availability-btn {
+      display: inline-block;
+      padding: 15px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      border: 2px solid #3498db;
+      border-radius: 5px;
+      color: #3498db;
+      background-color: #fff;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .check-availability-btn:hover {
+      background-color: #3498db;
+      color: #fff;
+    }
+</style>
