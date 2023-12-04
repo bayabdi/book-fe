@@ -40,26 +40,3 @@ export default {
     },
 };
 </script>
-
-<style scoped>
-    .label {
-        margin: 10px;
-    }
-    .password {
-        margin-left: 4px;
-    }
-    .input-field{
-        margin: 10px;
-    }
-    .btn{
-        width: 100%;
-        max-width: 100px;
-        padding: 10px 2px;
-        text-transform: uppercase;
-        background-color: blue;
-        color: white;
-        border-radius: 50px;
-        border: 0px;
-        font-weight: bold;
-    }
-</style>

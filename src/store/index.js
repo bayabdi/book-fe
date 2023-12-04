@@ -87,7 +87,7 @@ const store = createStore({
         console.log(error)
       }
     },
-    async myBookList({ commit }) {
+    async myBookList({ commit }, status) {
       try {
         const token = localStorage.getItem('token')
         
@@ -96,7 +96,7 @@ const store = createStore({
           'Content-Type': 'application/json', // Adjust the content type as needed
         };
 
-        axios.get('/appointment/list', { headers })
+        axios.get('/appointment/list?status=' + status, { headers })
           .then(response => {
             commit('SET_APPOINTMENTS', response.data)
           })
@@ -189,7 +189,20 @@ const store = createStore({
     async logout({commit}) {
       commit('SET_USER', null)
       commit('SET_TOKEN', null)
-    }
+    },
+
+    // eslint-disable-next-line no-unused-vars
+    async register({ commit }, user) {
+      axios.post('/user/register', user)
+        .then(response => {
+          console.log(response)
+          window.location.reload();
+        })
+        .catch(error => {
+          // Handle error
+          alert(error);
+        });
+    },
   },
 });
 

@@ -1,6 +1,11 @@
 <template>
     <div>
         <h1>My appointments:</h1>
+        <div>
+            <button class="pending-button" @click="bookList(1)">List of PENDINGs</button>
+            <button class="approved-button" @click="bookList(2)">List of PLANNEDs</button>
+            <button class="declined-button" @click="bookList(3)">List of DECLINEDs</button>
+        </div>
         <table style="max-width: 700px; margin-left: auto; margin-right: auto;">
             <thead>
                 <tr>
@@ -45,10 +50,13 @@ export default {
             const formattedDate = `${dateObject.getFullYear()}-${(dateObject.getMonth() + 1).toString().padStart(2, '0')}-${dateObject.getDate().toString().padStart(2, '0')} ${dateObject.getHours().toString().padStart(2, '0')}:${dateObject.getMinutes().toString().padStart(2, '0')}`;
 
             return formattedDate;
+        },
+        bookList(status) {
+            this.$store.dispatch('myBookList', status);
         }
     },
     mounted() {
-        this.$store.dispatch('myBookList');
+        this.$store.dispatch('myBookList', 1);
     }
 };
 </script>
@@ -87,5 +95,36 @@ export default {
     td:last-child {
       border-top-right-radius: 8px;
       border-bottom-right-radius: 8px;
+    }
+
+    .pending-button, .approved-button, .declined-button{
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+    margin: 0 10px;
+}
+
+    .pending-button {
+        background-color: #bc34db;
+        color: #fff;
+    }
+
+    .approved-button {
+        background-color: #34db34;
+        color: #fff;
+    }
+
+    .declined-button {
+        background-color: #e74c3c;
+        color: #fff;
+    }
+
+    .pending-button:hover, .approved-button:hover, .cancel-button:hover {
+        background-color: #2980b9;
     }
 </style>
